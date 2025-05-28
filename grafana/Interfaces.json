@@ -1,0 +1,737 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_VM-TELEMETRY",
+      "label": "VM-Telemetry",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "12.0.1"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_VM-TELEMETRY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bps"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "err|fcs"
+            },
+            "properties": [
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              },
+              {
+                "id": "unit",
+                "value": "pps"
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-reds"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.0.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "rate(INTERFACES_in_octets{device=\"$device\", sensor=\"$interface\"}[$__rate_interval])*8",
+          "instant": false,
+          "legendFormat": "in",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "rate(INTERFACES_out_octets{device=\"$device\", sensor=\"$interface\"}[$__rate_interval])*8",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "out",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "rate(INTERFACES_in_errors{device=\"$device\", sensor=\"$interface\"}[$__rate_interval])",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "err",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "rate(INTERFACES_in_fcs_errors{device=\"$device\", sensor=\"$interface\"}[$__rate_interval])",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "fcs",
+          "range": true,
+          "refId": "D"
+        }
+      ],
+      "title": "$interface traffic",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_VM-TELEMETRY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "Bps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.0.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "rate(QUEUE_transmit_octets{device=\"$device\", interface_id=\"$interface\"}[$__rate_interval]) >0",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "tx q{{sensor}}",
+          "range": true,
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "rate(QUEUE_dropped_octets{device=\"$device\", interface_id=\"$interface\"}[$__rate_interval]) >0",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "drop bytes q{{sensor}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Queue bytes $interface",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_VM-TELEMETRY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "pps"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "err|fcs"
+            },
+            "properties": [
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              },
+              {
+                "id": "unit",
+                "value": "pps"
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-reds"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.0.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "rate(INTERFACES_in_pkts{device=\"$device\", sensor=\"$interface\"}[$__rate_interval])",
+          "instant": false,
+          "legendFormat": "in",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "rate(INTERFACES_out_pkts{device=\"$device\", sensor=\"$interface\"}[$__rate_interval])",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "out",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "rate(INTERFACES_in_errors{device=\"$device\", sensor=\"$interface\"}[$__rate_interval])",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "err",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "rate(INTERFACES_in_fcs_errors{device=\"$device\", sensor=\"$interface\"}[$__rate_interval])",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "fcs",
+          "range": true,
+          "refId": "D"
+        }
+      ],
+      "title": "$interface packets",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_VM-TELEMETRY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "pps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.0.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "rate(QUEUE_transmit_pkts{device=\"$device\", interface_id=\"$interface\"}[$__rate_interval]) >0",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "pkts q{{sensor}}",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "rate(INTERFACES_out_queue_red_drop_pkts{device=\"$device\", sensor=\"$interface\"}[$__rate_interval]) >0",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "red q{{queue_number}}",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "rate(INTERFACES_out_queue_rl_drop_pkts{device=\"$device\", sensor=\"$interface\"}[$__rate_interval]) >0",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "rl {{queue_number}}",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "rate(INTERFACES_out_queue_tail_drop_pkts{device=\"$device\", sensor=\"$interface\"}[$__rate_interval]) >0",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "tail q{{queue_number}}",
+          "range": true,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "rate(INTERFACES_out_queue_hp_red_drop_pkts{device=\"$device\", sensor=\"$interface\"}[$__rate_interval]) >0",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "hp red q{{queue_number}}",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "rate(INTERFACES_out_queue_lp_red_drop_pkts{device=\"$device\", sensor=\"$interface\"}[$__rate_interval]) >0",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "lp red q{{queue_number}}",
+          "range": true,
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "rate(QUEUE_dropped_pkts{device=\"$device\", interface_id=\"$interface\"}[$__rate_interval]) >0",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "drop q{{sensor}}",
+          "range": true,
+          "refId": "G"
+        }
+      ],
+      "title": "Queue packets $interface",
+      "type": "timeseries"
+    }
+  ],
+  "schemaVersion": 41,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_VM-TELEMETRY}"
+        },
+        "definition": "label_values(INTERFACES_in_octets,device)",
+        "name": "device",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(INTERFACES_in_octets,device)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_VM-TELEMETRY}"
+        },
+        "definition": "label_values(INTERFACES_in_octets{device=\"$device\"},sensor)",
+        "name": "interface",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(INTERFACES_in_octets{device=\"$device\"},sensor)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Interfaces",
+  "uid": "6003d3c9-0fee-425a-8686-924b6420e02d",
+  "version": 19,
+  "weekStart": ""
+}

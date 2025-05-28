@@ -1,0 +1,34 @@
+x-global-environment: &global_env
+  env_file:
+    - .env
+services:
+  telegraf-acx:
+    image: docker.io/telegraf:1.34.2
+    container_name: telegraf-acx
+    <<: *global_env
+    volumes:
+#      - ./acx.conf:/etc/telegraf/telegraf.conf:ro
+      - ./telegraf.d:/etc/telegraf/telegraf.d:ro
+      - ./acx.conf:/etc/telegraf/telegraf.conf.template:ro
+      - ./start_telegraf.sh:/var/tmp/start-telegraf.sh:ro
+    entrypoint: ["/bin/bash", "/var/tmp/start-telegraf.sh"]
+  telegraf-mx:
+    image: docker.io/telegraf:1.34.2
+    container_name: telegraf-mx
+    <<: *global_env
+    volumes:
+#      - ./mx.conf:/etc/telegraf/telegraf.conf:ro
+      - ./telegraf.d:/etc/telegraf/telegraf.d:ro
+      - ./mx.conf:/etc/telegraf/telegraf.conf.template:ro
+      - ./start_telegraf.sh:/var/tmp/start-telegraf.sh:ro
+    entrypoint: ["/bin/bash", "/var/tmp/start-telegraf.sh"]
+  telegraf-ptx:
+    image: docker.io/telegraf:1.34.2
+    container_name: telegraf-ptx
+    <<: *global_env
+    volumes:
+#      - ./ptx.conf:/etc/telegraf/telegraf.conf:ro
+      - ./telegraf.d:/etc/telegraf/telegraf.d:ro
+      - ./ptx.conf:/etc/telegraf/telegraf.conf.template:ro
+      - ./start_telegraf.sh:/var/tmp/start-telegraf.sh:ro
+    entrypoint: ["/bin/bash", "/var/tmp/start-telegraf.sh"]
