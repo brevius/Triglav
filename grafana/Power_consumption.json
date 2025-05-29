@@ -127,10 +127,16 @@
       "id": 1,
       "options": {
         "legend": {
-          "calcs": [],
+          "calcs": [
+            "lastNotNull",
+            "max",
+            "mean"
+          ],
           "displayMode": "table",
           "placement": "bottom",
-          "showLegend": true
+          "showLegend": true,
+          "sortBy": "Mean",
+          "sortDesc": true
         },
         "tooltip": {
           "hideZeros": false,
@@ -284,7 +290,7 @@
           "refId": "B"
         }
       ],
-      "title": "Current",
+      "title": "PIONIER Current",
       "type": "gauge"
     }
   ],
@@ -321,6 +327,6 @@
   "timezone": "browser",
   "title": "Power consumption",
   "uid": "ce6cfc0c-27f5-467e-ba78-44079a419e88",
-  "version": 4,
+  "version": 6,
   "weekStart": ""
 }

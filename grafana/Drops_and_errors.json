@@ -81,179 +81,7 @@
             "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
-            "pointSize": 3,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "bps"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "resv"
-            },
-            "properties": [
-              {
-                "id": "custom.lineWidth",
-                "value": 3
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "byte_avg"
-            },
-            "properties": [
-              {
-                "id": "custom.lineStyle",
-                "value": {
-                  "dash": [
-                    10,
-                    10
-                  ],
-                  "fill": "dash"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "rate"
-            },
-            "properties": [
-              {
-                "id": "custom.fillOpacity",
-                "value": 20
-              },
-              {
-                "id": "custom.lineInterpolation",
-                "value": "smooth"
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 0
-      },
-      "id": 5,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.0.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_VM-TELEMETRY}"
-          },
-          "editorMode": "code",
-          "expr": "LSP_signaled_bandwidth{lsp=\"${lsp}\"}",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "resv",
-          "range": true,
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_VM-TELEMETRY}"
-          },
-          "editorMode": "code",
-          "expr": "LSP_jnx_byte_rate{device=\"$device\",sensor=\"$lsp\"}*8",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "rate",
-          "range": true,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_VM-TELEMETRY}"
-          },
-          "editorMode": "code",
-          "expr": "quantile_over_time(0.95, rate(LSP_bytes{sensor=\"${lsp}\"}*8)[1h])",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "byte_avg",
-          "range": true,
-          "refId": "C"
-        }
-      ],
-      "title": "LSP traffic",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_VM-TELEMETRY}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 3,
+            "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
             },
@@ -282,70 +110,15 @@
           },
           "unit": "pps"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "resv"
-            },
-            "properties": [
-              {
-                "id": "custom.lineWidth",
-                "value": 4
-              },
-              {
-                "id": "custom.axisPlacement",
-                "value": "right"
-              },
-              {
-                "id": "unit",
-                "value": "Bps"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "packet_avg"
-            },
-            "properties": [
-              {
-                "id": "custom.lineStyle",
-                "value": {
-                  "dash": [
-                    10,
-                    10
-                  ],
-                  "fill": "dash"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "rate"
-            },
-            "properties": [
-              {
-                "id": "custom.fillOpacity",
-                "value": 20
-              },
-              {
-                "id": "custom.lineInterpolation",
-                "value": "smooth"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 12,
+        "x": 0,
         "y": 0
       },
-      "id": 1,
+      "id": 3,
       "options": {
         "legend": {
           "calcs": [],
@@ -367,23 +140,9 @@
             "uid": "${DS_VM-TELEMETRY}"
           },
           "editorMode": "code",
-          "expr": "LSP_signaled_bandwidth{lsp=\"${lsp}\"}",
-          "hide": false,
+          "expr": "rate(INTERFACES_in_errors{}[$__rate_interval]) >0",
           "instant": false,
-          "legendFormat": "resv",
-          "range": true,
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_VM-TELEMETRY}"
-          },
-          "editorMode": "code",
-          "expr": "LSP_jnx_packet_rate{device=\"$device\",sensor=\"$lsp\"}",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "rate",
+          "legendFormat": "in {{device}} {{sensor}}",
           "range": true,
           "refId": "A"
         },
@@ -393,15 +152,15 @@
             "uid": "${DS_VM-TELEMETRY}"
           },
           "editorMode": "code",
-          "expr": "rate(LSP_packets{sensor=\"${lsp}\"})",
-          "hide": true,
+          "expr": "rate(INTERFACES_in_fcs_errors{}[$__rate_interval]) >0",
+          "hide": false,
           "instant": false,
-          "legendFormat": "packet_avg",
+          "legendFormat": "fcs {{device}} {{sensor}}",
           "range": true,
-          "refId": "C"
+          "refId": "B"
         }
       ],
-      "title": "LSP packets",
+      "title": "Interface errors",
       "type": "timeseries"
     },
     {
@@ -433,7 +192,7 @@
             "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
-            "pointSize": 1,
+            "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
             },
@@ -459,34 +218,27 @@
                 "value": 80
               }
             ]
-          },
-          "unit": "bps"
+          }
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
-        "w": 24,
-        "x": 0,
-        "y": 8
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
       },
-      "id": 6,
+      "id": 2,
       "options": {
         "legend": {
-          "calcs": [
-            "lastNotNull",
-            "mean",
-            "p95"
-          ],
-          "displayMode": "table",
+          "calcs": [],
+          "displayMode": "list",
           "placement": "bottom",
-          "showLegend": true,
-          "sortBy": "95th %",
-          "sortDesc": true
+          "showLegend": true
         },
         "tooltip": {
-          "hideZeros": true,
-          "mode": "multi",
+          "hideZeros": false,
+          "mode": "single",
           "sort": "none"
         }
       },
@@ -498,28 +250,41 @@
             "uid": "${DS_VM-TELEMETRY}"
           },
           "editorMode": "code",
-          "expr": "LSP_jnx_byte_rate{device=\"$device\"}*8 >0",
+          "expr": "rate(PROPERTIES_Packet_dropped_due_to_congestion{}[$__rate_interval]) >0",
           "instant": false,
-          "legendFormat": "{{lsp}}",
+          "legendFormat": "congestion {{device}} {{sensor}}",
           "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "rate(PROPERTIES_Packets_dropeed_due_to_Invalid_Destination{}[$__rate_interval]) >0",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "inv dest  {{device}} {{sensor}}",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "rate(PROPERTIES_Packets_dropped_in_Ingress_Traffic_Managers{}[$__rate_interval]) >0",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "in tm {{device}} {{sensor}}",
+          "range": true,
+          "refId": "C"
         }
       ],
-      "title": "New panel",
+      "title": "System drops",
       "type": "timeseries"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 18
-      },
-      "id": 4,
-      "panels": [],
-      "title": "RSVP",
-      "type": "row"
     },
     {
       "datasource": {
@@ -577,7 +342,7 @@
               }
             ]
           },
-          "unit": "bps"
+          "unit": "pps"
         },
         "overrides": []
       },
@@ -585,9 +350,9 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 19
+        "y": 8
       },
-      "id": 2,
+      "id": 1,
       "options": {
         "legend": {
           "calcs": [],
@@ -609,14 +374,66 @@
             "uid": "${DS_VM-TELEMETRY}"
           },
           "editorMode": "code",
-          "expr": "RSVP_reserved_bandwidth{device=\"${device}\", interface_id=~\"ge-.*|xe-.*|et-.*|ae.*\", priority=\"0\"}",
+          "expr": "rate(QUEUE_dropped_pkts{}[$__rate_interval]) >0",
           "instant": false,
-          "legendFormat": "{{interface_id}}",
+          "legendFormat": "{{device}} {{interface_id}} q{{sensor}}",
           "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "rate(INTERFACES_out_queue_hp_red_drop_pkts{}[$__rate_interval]) >0",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "hp red {{device}} {{sensor}} q{{queue_number}}",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "rate(INTERFACES_out_queue_lp_red_drop_pkts{}[$__rate_interval]) >0",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "lp red {{device}} {{sensor}} q{{queue_number}}",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "rate(INTERFACES_out_queue_red_drop_pkts{}[$__rate_interval]) >0",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "red {{device}} {{sensor}} q{{queue_number}}",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "rate(INTERFACES_out_queue_tail_drop_pkts{}[$__rate_interval]) >0",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "tail {{device}} {{sensor}} q{{queue_number}}",
+          "range": true,
+          "refId": "E"
         }
       ],
-      "title": "Interface reserved bandwidth",
+      "title": "Packet drops",
       "type": "timeseries"
     },
     {
@@ -635,7 +452,6 @@
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
-            "axisSoftMin": 0,
             "barAlignment": 0,
             "barWidthFactor": 0.6,
             "drawStyle": "line",
@@ -649,7 +465,7 @@
             "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
-            "pointSize": 3,
+            "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
             },
@@ -675,7 +491,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "pps"
         },
         "overrides": []
       },
@@ -683,9 +500,9 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 19
+        "y": 8
       },
-      "id": 3,
+      "id": 4,
       "options": {
         "legend": {
           "calcs": [],
@@ -707,69 +524,142 @@
             "uid": "${DS_VM-TELEMETRY}"
           },
           "editorMode": "code",
-          "expr": "RSVP_active_reservations_count{device=\"mx-poz-2\", interface_id=~\"ge-.*|xe-.*|et-.*|ae.*\"}",
+          "expr": "rate(PROPERTIES_hwds_tcp_error{}[$__rate_interval]) >0",
+          "hide": false,
           "instant": false,
-          "legendFormat": "{{interface_id}}",
+          "legendFormat": "hwds tcp {{device}} {{sensor}}",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "rate(PROPERTIES_hwds_data_error{}[$__rate_interval]) >0",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "hwds data {{device}} {{sensor}}",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Hardware",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_VM-TELEMETRY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "pps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 16
+      },
+      "id": 5,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.0.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "rate(INTERFACES_out_errors{}[$__rate_interval]) >0",
+          "instant": false,
+          "legendFormat": "out {{device}} {{sensor}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Interface reservations count",
+      "title": "Interface out errors",
       "type": "timeseries"
     }
   ],
   "schemaVersion": 41,
   "tags": [],
   "templating": {
-    "list": [
-      {
-        "current": {},
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${DS_VM-TELEMETRY}"
-        },
-        "definition": "label_values(LSP_bytes,device)",
-        "name": "device",
-        "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(LSP_bytes,device)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
-        "refresh": 2,
-        "regex": "",
-        "type": "query"
-      },
-      {
-        "allowCustomValue": false,
-        "current": {},
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${DS_VM-TELEMETRY}"
-        },
-        "definition": "label_values(LSP_bytes{device=~\"$device\"},sensor)",
-        "name": "lsp",
-        "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(LSP_bytes{device=~\"$device\"},sensor)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
-        "refresh": 2,
-        "regex": "^(?!Bypass).*",
-        "sort": 1,
-        "type": "query"
-      }
-    ]
+    "list": []
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-12h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "MPLS TE",
-  "uid": "1d29e848-5aa6-4ae0-a386-66c3d6f6137f",
-  "version": 41,
+  "title": "Drops and errors",
+  "uid": "7dd90844-1bad-42a2-a766-eaf7c0e63a93",
+  "version": 4,
   "weekStart": ""
 }

@@ -3,7 +3,7 @@ gNMI/JTI based telemetry
 
 Triglav allows you to collect telemetry data using telegraf and gnmi from Juniper ACX, PTX and MX devices.
 
-Due to differences between platforms and sensor availability for different software versions, the data collected may vary.
+Due to differences between platforms and sensor availability for different software versions, the data collected may vary. I'm using it on Junos(EVO) 24.2.
 
 Configuration allows sending metrics to the VictoriaMetrics database.
 
