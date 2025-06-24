@@ -15,7 +15,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "12.0.1"
+      "version": "12.0.2"
     },
     {
       "type": "datasource",
@@ -52,6 +52,19 @@
   "id": null,
   "links": [],
   "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 9,
+      "panels": [],
+      "title": "LSPs",
+      "type": "row"
+    },
     {
       "datasource": {
         "type": "prometheus",
@@ -163,7 +176,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 0
+        "y": 1
       },
       "id": 5,
       "options": {
@@ -179,7 +192,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.0.1",
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
@@ -221,7 +234,7 @@
           "refId": "C"
         }
       ],
-      "title": "LSP traffic",
+      "title": "$lsp traffic",
       "type": "timeseries"
     },
     {
@@ -343,7 +356,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 0
+        "y": 1
       },
       "id": 1,
       "options": {
@@ -359,7 +372,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.0.1",
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
@@ -401,7 +414,7 @@
           "refId": "C"
         }
       ],
-      "title": "LSP packets",
+      "title": "$lsp packets",
       "type": "timeseries"
     },
     {
@@ -465,10 +478,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
-        "w": 24,
+        "h": 9,
+        "w": 12,
         "x": 0,
-        "y": 8
+        "y": 9
       },
       "id": 6,
       "options": {
@@ -487,10 +500,10 @@
         "tooltip": {
           "hideZeros": true,
           "mode": "multi",
-          "sort": "none"
+          "sort": "desc"
         }
       },
-      "pluginVersion": "12.0.1",
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
@@ -505,21 +518,251 @@
           "refId": "A"
         }
       ],
-      "title": "New panel",
+      "title": "$device LSPs traffic",
       "type": "timeseries"
     },
     {
-      "collapsed": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_VM-TELEMETRY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 0.1,
+            "pointSize": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 9
+      },
+      "id": 8,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "mean",
+            "p95"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "95th %",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "hideZeros": true,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "12.0.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "LSP_jnx_byte_rate{device=\"$device\"}*8 >0",
+          "instant": false,
+          "legendFormat": "{{lsp}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "$device LSP traffic stack",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
         "y": 18
       },
-      "id": 4,
+      "id": 10,
       "panels": [],
-      "title": "RSVP",
+      "title": "Interface",
       "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_VM-TELEMETRY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bps"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "et-0/0/0.0"
+            },
+            "properties": [
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 19
+      },
+      "id": 7,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.0.2",
+      "repeat": "unit",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "RSVP_reserved_bandwidth{device=\"${device}\", interface_id=\"${interface}\", priority=\"0\"}",
+          "instant": false,
+          "legendFormat": "RSVP resv",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VM-TELEMETRY}"
+          },
+          "editorMode": "code",
+          "expr": "rate(SUBINTERFACES_out_octets{device=\"$device\",sensor=\"$phy\", index=\"$unit\"}[$__rate_interval]*8)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "traffic out",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "$interface reserved bandwidth",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -585,7 +828,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 19
+        "y": 27
       },
       "id": 2,
       "options": {
@@ -601,7 +844,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.0.1",
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
@@ -609,7 +852,7 @@
             "uid": "${DS_VM-TELEMETRY}"
           },
           "editorMode": "code",
-          "expr": "RSVP_reserved_bandwidth{device=\"${device}\", interface_id=~\"ge-.*|xe-.*|et-.*|ae.*\", priority=\"0\"}",
+          "expr": "RSVP_reserved_bandwidth{device=\"${device}\", interface_id=~\"ge-.*|xe-.*|et-.*|ae.*\", priority=\"0\"}*1000",
           "instant": false,
           "legendFormat": "{{interface_id}}",
           "range": true,
@@ -683,7 +926,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 19
+        "y": 27
       },
       "id": 3,
       "options": {
@@ -699,7 +942,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.0.1",
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
@@ -738,6 +981,7 @@
         },
         "refresh": 2,
         "regex": "",
+        "sort": 1,
         "type": "query"
       },
       {
@@ -759,6 +1003,68 @@
         "regex": "^(?!Bypass).*",
         "sort": 1,
         "type": "query"
+      },
+      {
+        "allowCustomValue": false,
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_VM-TELEMETRY}"
+        },
+        "definition": "label_values(RSVP_reserved_bandwidth{device=\"$device\"},interface_id)",
+        "name": "interface",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(RSVP_reserved_bandwidth{device=\"$device\"},interface_id)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 2,
+        "regex": "/et-.*|ae.*|xe-.*|ge-.*/",
+        "sort": 7,
+        "type": "query"
+      },
+      {
+        "allowCustomValue": false,
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_VM-TELEMETRY}"
+        },
+        "definition": "label_values(RSVP_reserved_bandwidth{interface_id=\"$interface\"},interface_id)",
+        "hide": 2,
+        "includeAll": false,
+        "name": "phy",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(RSVP_reserved_bandwidth{interface_id=\"$interface\"},interface_id)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "(?<text>.*)\\.\\d+",
+        "type": "query"
+      },
+      {
+        "allowCustomValue": false,
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_VM-TELEMETRY}"
+        },
+        "definition": "label_values(RSVP_reserved_bandwidth{interface_id=~\"$interface\"},interface_id)",
+        "hide": 2,
+        "includeAll": false,
+        "name": "unit",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(RSVP_reserved_bandwidth{interface_id=~\"$interface\"},interface_id)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": ".*\\.(?<value>\\d+)",
+        "type": "query"
       }
     ]
   },
@@ -770,6 +1076,6 @@
   "timezone": "browser",
   "title": "MPLS TE",
   "uid": "1d29e848-5aa6-4ae0-a386-66c3d6f6137f",
-  "version": 41,
+  "version": 57,
   "weekStart": ""
 }

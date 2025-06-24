@@ -32,3 +32,5 @@ Individual Telegraf instances for ACX, MX and PTX platforms are run in container
 ```
 # docker compose up -d
 ```
+
+Example Grafana dashboards are defined for VictoriaMetrics data source.
